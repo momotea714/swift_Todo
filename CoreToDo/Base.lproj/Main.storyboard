@@ -166,6 +166,7 @@
                         <viewLayoutGuide key="safeArea" id="EJt-0Z-9di"/>
                     </view>
                     <connections>
+                        <outlet property="btnAdd" destination="ptH-Qk-XIY" id="4Uq-hA-Rr2"/>
                         <outlet property="categorySegmentedControl" destination="EG7-lf-0Zr" id="Fdt-OF-5w2"/>
                         <outlet property="taskTextField" destination="JZH-v0-eWX" id="qcu-1O-Anv"/>
                     </connections>

@@ -14,6 +14,7 @@ class AddTaskViewController: UIViewController {
     @IBOutlet weak var taskTextField: UITextField!
     @IBOutlet weak var categorySegmentedControl: UISegmentedControl!
     
+    @IBOutlet weak var btnAdd: UIButton!
     var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var task: Task?
     
@@ -28,6 +29,7 @@ class AddTaskViewController: UIViewController {
         if let task = task {
             taskTextField.text = task.name
             taskCategory = task.category!
+            btnAdd.setTitle("Edit", for: .normal)
             switch task.category! {
             case "ToDo":
                 categorySegmentedControl.selectedSegmentIndex = 0
