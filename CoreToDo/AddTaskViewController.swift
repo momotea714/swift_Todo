@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Unbox
 
 class AddTaskViewController: UIViewController {
     
@@ -28,9 +29,9 @@ class AddTaskViewController: UIViewController {
         // taskに値が代入されていたら、textFieldとsegmentedControlにそれを表示
         if let task = task {
             taskTextField.text = task.name
-            taskCategory = task.category!
+            taskCategory = task.category
             btnAdd.setTitle("Edit", for: .normal)
-            switch task.category! {
+            switch task.category {
             case "ToDo":
                 categorySegmentedControl.selectedSegmentIndex = 0
             case "Shopping":
@@ -72,13 +73,18 @@ class AddTaskViewController: UIViewController {
         
         // 受け取った値が空であれば、新しいTask型オブジェクトを作成する
         if task == nil {
-            task = Task(context: context)
+            task = Task()
         }
         
-        // 受け取ったオブジェクト、または、先ほど新しく作成したオブジェクトそのタスクのnameとcategoryに入力データを代入する
-        if let task = task {
-            task.name = taskName
-            task.category = taskCategory
+        if (task?.id == 0)
+        {
+            //新規登録
+            URLSessionFacade.get(url: URLString.InsertTodoURL, queryItems: Task.getInsertQueryItems(task_name: taskName!, task_category: taskCategory))
+        }
+        else
+        {
+            //修正登録
+            URLSessionFacade.get(url: URLString.UpdateTodoURL, queryItems: Task.getUpdateQueryItems(task_id: (task?.id)!, task_name: taskName!, task_category: taskCategory))
         }
         
         // 変更内容を保存する
