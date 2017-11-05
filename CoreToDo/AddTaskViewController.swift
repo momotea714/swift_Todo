@@ -88,7 +88,7 @@ class AddTaskViewController: UIViewController {
         }
         
         // 変更内容を保存する
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+//        (UIApplication.shared.delegate as! AppDelegate).saveContext()
         
         dismiss(animated: true, completion: nil)
     }

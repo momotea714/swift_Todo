@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Unbox
+import ANLoader
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -30,16 +31,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         // CoreDataからデータをfetchしてくる
+        
         getData()
+        
     }
     
     @IBAction func btnRefreshData(_ sender: Any) {
         viewWillAppear(true)
+//        ANLoader.hide()
     }
     
     // MARK: - Method of Getting data from Core Data
     func getData() {
-        
+        ANLoader.showLoading()
         let url = URLComponents(string: URLString.SelectTodoListURL)!
         let task = URLSession.shared.dataTask(with: url.url!){ data, response, error in
             if let data = data {
@@ -59,6 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     
                     DispatchQueue.main.async {
                         self.taskTableView.reloadData()
+//                        ANLoader.hide()
                     }
                     
                     print(json)
@@ -69,7 +74,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print(error ?? "Error")
             }
         }
+        ANLoader.hide()
         task.resume()
+        
 //        // データ保存時と同様にcontextを定義
 //        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 //        do {

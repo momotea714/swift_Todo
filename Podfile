@@ -8,6 +8,7 @@ target 'CoreToDo' do
   # Pods for CoreToDo
 platform :ios, "8.0"
 pod 'Unbox'
+pod 'ANLoader', '~> 0.1'
 
   target 'CoreToDoTests' do
     inherit! :search_paths
