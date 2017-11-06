@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 import Unbox
-import ANLoader
+import KRProgressHUD
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -43,7 +43,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: - Method of Getting data from Core Data
     func getData() {
-        ANLoader.showLoading()
+        KRProgressHUD.show()
         let url = URLComponents(string: URLString.SelectTodoListURL)!
         let task = URLSession.shared.dataTask(with: url.url!){ data, response, error in
             if let data = data {
@@ -63,7 +63,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     
                     DispatchQueue.main.async {
                         self.taskTableView.reloadData()
-//                        ANLoader.hide()
                     }
                     
                     print(json)
@@ -74,7 +73,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print(error ?? "Error")
             }
         }
-        ANLoader.hide()
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            KRProgressHUD.dismiss()
+        }
         task.resume()
         
 //        // データ保存時と同様にcontextを定義

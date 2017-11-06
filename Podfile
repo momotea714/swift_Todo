@@ -9,6 +9,7 @@ target 'CoreToDo' do
 platform :ios, "8.0"
 pod 'Unbox'
 pod 'ANLoader', '~> 0.1'
+pod 'KRProgressHUD'
 
   target 'CoreToDoTests' do
     inherit! :search_paths
